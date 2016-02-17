@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Basic HTML Page</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="calstyles.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="sitewrapper">	
+			<div id="menu">
+				<ul>
+					<li><a id="addtop" href="#" title="Home">Add week to top</a></li>
+					<li><a id="addbottom" href="#" title="Home">Add week to bottom</a></li>
+					<li><a id="" href="#" title="Home">Next Month</a></li>
+					<li><a id="" href="#" title="Home">Last Month</a></li>
+				</ul>
+			</div>
+			<div id="contentwrapper">								
+				<div id="content">
+					<div id="calendar">						
+					</div>				
+			</div>
+		</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" type="text/javascript"></script>
+		<script src="calendar.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			dojo.require("dojo.parser");
+			dojo.require("dojo.NodeList-fx");
+							
+			dojo.addOnLoad( function() {
+				cal = new DCalendar('calendar'); 
+				console.log(cal);	
+						
+				// Menu setup
+				dojo.query('#addtop').forEach(function(x) {
+					dojo.connect(x, 'onclick', function(e) {
+						cal.topWeek(); // Adjust the weeks
+						cal.render('start');					
+					});
+				});
+				
+				dojo.query('#addbottom').forEach(function(x) {
+					dojo.connect(x, 'onclick', function(e) {
+						cal.bottomWeek(); // Adjust the weeks
+						cal.render('end');					
+					});
+				});
+				
+				dojo.query('#' + cal.today).forEach(function(item,i) {
+					dojo.connect(item, 'onclick', function(e) {
+						console.log(item.id);
+					});
+				});
+			});			
+		</script>
+	</body>
+</html>
